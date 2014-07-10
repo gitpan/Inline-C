@@ -1,3 +1,6 @@
+0.56_01 Thu Jul 10 01:21:08 BST 2014
+ - Merge in changes to inline-pm repo since this was split off.
+
 0.54 Thu Jun 26 10:22:29 PDT 2014
  - First release of Inline::C as its own distribution.
 

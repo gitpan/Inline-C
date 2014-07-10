@@ -28,6 +28,7 @@ t/10callback.t
 t/11default_readonly.t
 t/12taint_old.t
 t/14void_arg.t
+t/14void_arg_PRD.t
 t/15ccflags.t
 t/16ccflagsex.t
 t/17prehead.t
@@ -39,6 +40,7 @@ t/22read_DATA_2.t
 t/23validate.t
 t/24prefix.t
 t/25proto.t
+t/26fork.t
 t/_Inline_test/build/_20eval_t_f03b/INLINE.h
 t/_Inline_test/build/_20eval_t_f03b/MYMETA.json
 t/_Inline_test/build/_20eval_t_f03b/MYMETA.yml
