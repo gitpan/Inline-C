@@ -20,9 +20,9 @@ my %WriteMakefileArgs = (
   "LICENSE" => "perl",
   "NAME" => "Inline::C",
   "PREREQ_PM" => {
-    "Inline" => 0
+    "Inline" => "0.56"
   },
-  "VERSION" => "0.56_01",
+  "VERSION" => "0.56_02",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -30,7 +30,7 @@ my %WriteMakefileArgs = (
 
 
 my %FallbackPrereqs = (
-  "Inline" => 0
+  "Inline" => "0.56"
 );
 
 

@@ -34,7 +34,7 @@
       },
       "runtime" : {
          "requires" : {
-            "Inline" : "0",
+            "Inline" : "0.56",
             "perl" : "v5.8.1"
          }
       }
@@ -51,6 +51,6 @@
          "web" : "https://github.com/ingydotnet/inline-c-pm"
       }
    },
-   "version" : "0.56_01"
+   "version" : "0.56_02"
 }
 
