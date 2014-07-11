@@ -34,7 +34,11 @@
       },
       "runtime" : {
          "requires" : {
+            "File::Spec" : "0.8",
             "Inline" : "0.57",
+            "Parse::RecDescent" : "1.80",
+            "Test::More" : "0.88",
+            "Test::Warn" : "0.23",
             "perl" : "v5.8.1"
          }
       }
@@ -51,6 +55,6 @@
          "web" : "https://github.com/ingydotnet/inline-c-pm"
       }
    },
-   "version" : "0.57"
+   "version" : "0.58"
 }
 
