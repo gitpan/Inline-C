@@ -1,3 +1,6 @@
+0.57 Fri Jul 11 01:51:14 BST 2014
+ - Inline::C separated from Inline
+
 0.56_03 Fri Jul 11 01:20:18 BST 2014
  - Test of release system.
 

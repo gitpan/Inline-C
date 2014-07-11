@@ -19,10 +19,10 @@ no_index:
     - xt
     - example
 requires:
-  Inline: '0.56'
+  Inline: '0.57'
   perl: v5.8.1
 resources:
   bugtracker: https://github.com/ingydotnet/inline-c-pm/issues
   homepage: https://github.com/ingydotnet/inline-c-pm
   repository: https://github.com/ingydotnet/inline-c-pm.git
-version: 0.56_03
+version: '0.57'
