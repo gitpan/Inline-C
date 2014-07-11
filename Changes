@@ -1,3 +1,6 @@
+0.56_03 Fri Jul 11 01:20:18 BST 2014
+ - Test of release system.
+
 0.56_02 Thu Jul 10 04:13:56 BST 2014
  - Make depend on Inline 0.56.
  - Tidy up after tests.

@@ -22,7 +22,7 @@ my %WriteMakefileArgs = (
   "PREREQ_PM" => {
     "Inline" => "0.56"
   },
-  "VERSION" => "0.56_02",
+  "VERSION" => "0.56_03",
   "test" => {
     "TESTS" => "t/*.t"
   }
