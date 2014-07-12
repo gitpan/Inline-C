@@ -21,12 +21,12 @@ my %WriteMakefileArgs = (
   "NAME" => "Inline::C",
   "PREREQ_PM" => {
     "File::Spec" => "0.8",
-    "Inline" => "0.57",
+    "Inline" => "0.58",
     "Parse::RecDescent" => "1.80",
     "Test::More" => "0.88",
     "Test::Warn" => "0.23"
   },
-  "VERSION" => "0.58",
+  "VERSION" => "0.59",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -35,7 +35,7 @@ my %WriteMakefileArgs = (
 
 my %FallbackPrereqs = (
   "File::Spec" => "0.8",
-  "Inline" => "0.57",
+  "Inline" => "0.58",
   "Parse::RecDescent" => "1.80",
   "Test::More" => "0.88",
   "Test::Warn" => "0.23"

@@ -10,7 +10,9 @@ lib/Inline/C.pm
 lib/Inline/C.pod
 lib/Inline/C/Cookbook.pod
 lib/Inline/C/ParseRecDescent.pm
+lib/Inline/C/ParseRecDescent.pod
 lib/Inline/C/ParseRegExp.pm
+lib/Inline/C/ParseRegExp.pod
 t/00init.t
 t/01syntax.t
 t/02config.t
