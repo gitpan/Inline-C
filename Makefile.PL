@@ -22,11 +22,13 @@ my %WriteMakefileArgs = (
   "PREREQ_PM" => {
     "File::Spec" => "0.8",
     "Inline" => "0.58",
-    "Parse::RecDescent" => "1.80",
+    "Parse::RecDescent" => "1.80"
+  },
+  "TEST_REQUIRES" => {
     "Test::More" => "0.88",
     "Test::Warn" => "0.23"
   },
-  "VERSION" => "0.59",
+  "VERSION" => "0.60",
   "test" => {
     "TESTS" => "t/*.t"
   }
