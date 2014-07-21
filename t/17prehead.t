@@ -1,14 +1,10 @@
-BEGIN {
-  if (exists $ENV{PERL_INSTALL_ROOT}) {
-    warn "\nIgnoring \$ENV{PERL_INSTALL_ROOT} in $0\n";
-    delete $ENV{PERL_INSTALL_ROOT};
-  }
-};
-
 use File::Spec;
-use lib (File::Spec->catdir(File::Spec->updir(),'blib','lib'), File::Spec->catdir(File::Spec->curdir(),'blib','lib'));
 use strict;
 use diagnostics;
+use File::Basename;
+use lib dirname(__FILE__);
+use TestInlineSetup;
+use Inline Config => DIRECTORY => $TestInlineSetup::DIR;
 use Config;
 
 print "1..1\n";
@@ -22,8 +18,7 @@ use Inline C => Config =>
     #BUILD_NOISY => 1,
     #CLEAN_AFTER_BUILD => 0,
     FORCE_BUILD => 1,
-    PRE_HEAD => "$testdir/prehead.in",
-    DIRECTORY => '_Inline_test';
+    PRE_HEAD => "$testdir/prehead.in";
 
 use Inline C => <<'EOC';
 

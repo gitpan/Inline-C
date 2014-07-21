@@ -3,12 +3,14 @@ abstract: 'C Language Support for Inline'
 author:
   - 'Ingy döt Net <ingy@cpan.org>'
 build_requires:
+  File::Copy::Recursive: '0'
   Test::More: '0.88'
   Test::Warn: '0.23'
+  version: '0.77'
 configure_requires:
   ExtUtils::MakeMaker: '6.30'
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 5.019, CPAN::Meta::Converter version 2.132830'
+generated_by: 'Dist::Zilla version 5.019, CPAN::Meta::Converter version 2.140640'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -22,11 +24,11 @@ no_index:
     - example
 requires:
   File::Spec: '0.8'
-  Inline: '0.58'
+  Inline: '0.64'
   Parse::RecDescent: '1.80'
   perl: v5.8.1
 resources:
   bugtracker: https://github.com/ingydotnet/inline-c-pm/issues
   homepage: https://github.com/ingydotnet/inline-c-pm
   repository: https://github.com/ingydotnet/inline-c-pm.git
-version: '0.61'
+version: '0.62'

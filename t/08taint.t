@@ -11,21 +11,14 @@ BEGIN {
   }
 }
 
-BEGIN {
-  if (exists $ENV{PERL_INSTALL_ROOT}) {
-    warn "\nIgnoring \$ENV{PERL_INSTALL_ROOT} in $0\n";
-    delete $ENV{PERL_INSTALL_ROOT};
-  }
-}
-
 use warnings;
 use strict;
 use Test::More tests => 10;
 use Test::Warn;
-
-# Suppress "Set up gcc environment ..." warning.
-# (Affects ActivePerl only.)
-$ENV{ACTIVEPERL_CONFIG_SILENT} = 1;
+use File::Basename;
+use lib dirname(__FILE__);
+use TestInlineSetup;
+use Inline Config => DIRECTORY => $TestInlineSetup::DIR;
 
 # deal with running as root - actually simulate running as setuid program. Avoid on Windows.
 eval { $< = 1 }; # ignore failure

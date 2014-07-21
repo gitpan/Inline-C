@@ -1,22 +1,18 @@
 # Tests handling of the "void" arg with Parse::RecDescent parser.
 # Tests 4 onwards are not expected to pass - so we make them TODO.
 
-BEGIN {
-  if (exists $ENV{PERL_INSTALL_ROOT}) {
-    warn "\nIgnoring \$ENV{PERL_INSTALL_ROOT} in $0\n";
-    delete $ENV{PERL_INSTALL_ROOT};
-  }
-  mkdir('_Inline_test', 0777) unless -e '_Inline_test';
-};
 use strict;
 use warnings;
 use diagnostics;
 use Test::More;
+use File::Basename;
+use lib dirname(__FILE__);
+use TestInlineSetup;
+use Inline Config => DIRECTORY => $TestInlineSetup::DIR;
 use AutoLoader 'AUTOLOAD';
 
 use Inline C => Config =>
     FORCE_BUILD => 1,
-    DIRECTORY => '_Inline_test',
     USING => 'ParseRecDescent';
 
 my $c_text = <<'EOC';

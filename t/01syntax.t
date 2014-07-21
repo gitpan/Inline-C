@@ -1,34 +1,16 @@
-BEGIN {
-    if (exists $ENV{PERL_INSTALL_ROOT}) {
-        warn "\nIgnoring \$ENV{PERL_INSTALL_ROOT} in $0\n";
-        delete $ENV{PERL_INSTALL_ROOT};
-    }
-};
 use File::Spec;
-use lib (File::Spec->catdir(File::Spec->updir(),'blib','lib'), File::Spec->catdir(File::Spec->curdir(),'blib','lib'));
 use strict;
-use Test;
+use Test::More;
 use diagnostics;
-use Inline Config => DIRECTORY => '_Inline_test';
+use File::Basename;
+use lib dirname(__FILE__);
+use TestInlineSetup;
+use Inline Config => DIRECTORY => $TestInlineSetup::DIR;
 
-BEGIN {
-    plan(
-        tests => 5,
-        todo => [],
-        onfail => sub {},
-    );
-}
-use Inline Config =>
-           DIRECTORY => '_Inline_test';
-
-# test 1 - Check string syntax
-ok(add(3, 7) == 10);
-# test 2 - Check string syntax again
-ok(subtract(3, 7) == -4);
-# test 3 - Check DATA syntax
-ok(multiply(3, 7) == 21);
-# test 4 - Check DATA syntax again
-ok(divide(7, -3) == -2);
+is(add(3, 7), 10, 'string syntax');
+is(subtract(3, 7), -4, 'string syntax again');
+is(multiply(3, 7), 21, 'DATA syntax');
+is(divide(7, -3), -2, 'DATA syntax again');
 
 use Inline 'C';
 use Inline C => 'DATA';
@@ -50,8 +32,9 @@ int incr(int x) {
 }
 END
 
-# test 5 - Test Inline->bind() syntax
-ok(incr(incr(7)) == 9);
+is(incr(incr(7)), 9, 'Inline->bind() syntax');
+
+done_testing;
 
 __END__
 

@@ -1,22 +1,13 @@
 # This file checks that a bug in Inline::read_DATA() has been fixed.
 # The bug existed up to and including Inline-0.52.
 
-BEGIN {
-  if (exists $ENV{PERL_INSTALL_ROOT}) {
-    warn "\nIgnoring \$ENV{PERL_INSTALL_ROOT} in $0\n";
-    delete $ENV{PERL_INSTALL_ROOT};
-  }
-
-  mkdir('_Inline_test22', 0777) unless -e '_Inline_test22';
-};
 use File::Spec;
-use lib (File::Spec->catdir(File::Spec->updir(),'blib','lib'), File::Spec->catdir(File::Spec->curdir(),'blib','lib'));
 use strict;
 use warnings;
-
-
-use Inline Config =>
-    DIRECTORY => '_Inline_test22';
+use File::Basename;
+use lib dirname(__FILE__);
+use TestInlineSetup;
+use Inline Config => DIRECTORY => $TestInlineSetup::DIR;
 
 use Inline C => 'DATA';
 

@@ -1,6 +1,6 @@
 use strict; use warnings;
 package Inline::C;
-our $VERSION = '0.61';
+our $VERSION = '0.62';
 
 use Inline 0.56;
 use Config;
@@ -317,9 +317,9 @@ sub build {
         croak "You need Time::HiRes for BUILD_TIMERS option:\n$@" if $@;
         $total_build_time = Time::HiRes::time();
     }
-    open my $lockfh, '>', File::Spec->catfile($o->{API}{directory},'.lock')
-      or die "lockfile: $!";
-    flock($lockfh, LOCK_EX) if $^O !~ /^VMS|riscos|VOS$/;
+    my $file = File::Spec->catfile($o->{API}{directory},'.lock');
+    open my $lockfh, '>', $file or die "lockfile $file: $!";
+    flock($lockfh, LOCK_EX) or die "flock: $!\n" if $^O !~ /^VMS|riscos|VOS$/;
     $o->mkpath($o->{API}{build_dir});
     $o->call('preprocess', 'Build Preprocess');
     $o->call('parse', 'Build Parse');
@@ -383,7 +383,7 @@ END
 # Create and initialize a parser
 sub get_parser {
     my $o = shift;
-    Inline::C::_parser_test("Inline::C::get_parser called\n")
+    Inline::C::_parser_test($o->{CONFIG}{DIRECTORY}, "Inline::C::get_parser called\n")
         if $o->{CONFIG}{_TESTING};
     require Inline::C::ParseRecDescent;
     Inline::C::ParseRecDescent::get_parser($o);
@@ -535,8 +535,8 @@ sub write_XS {
     my $o = shift;
     my $modfname = $o->{API}{modfname};
     my $module = $o->{API}{module};
-    open XS, "> ".File::Spec->catfile($o->{API}{build_dir},"$modfname.xs")
-        or croak $!;
+    my $file = File::Spec->catfile($o->{API}{build_dir},"$modfname.xs");
+    open XS, ">", $file or croak "$file: $!";
     if ($o->{ILSM}{XSMODE}) {
         warn <<END if $^W and  $o->{ILSM}{code} !~ /MODULE\s*=\s*$module\b/;
 While using Inline XSMODE, your XS code does not have a line with
@@ -603,17 +603,13 @@ END
 
 sub xs_bindings {
     my $o = shift;
-    my $dir = '_Inline_test';
+    my $dir = $o->{API}{directory};
 
     if ($o->{CONFIG}{_TESTING}) {
-        if (! -d $dir) {
-            my $ok = mkdir $dir;
-            warn $! if !$ok;
-        }
-
-        if (! -f "$dir/void_test") {
-            warn $! if !open(TEST_FH, '>', "$dir/void_test");
-            warn $! if !close(TEST_FH);
+        my $file = "$dir/void_test";
+        if (! -f $file) {
+            warn "$file: $!" if !open(TEST_FH, '>', $file);
+            warn "$file: $!" if !close(TEST_FH);
         }
     }
 
@@ -1051,33 +1047,11 @@ sub fix_space {
 #==============================================================================
 
 sub _parser_test {
-    my $dir = '_Inline_test';
-    if (! -d $dir) {
-        my $ok = mkdir $dir;
-        warn $! if !$ok;
-    }
-
-    warn $! if !open(TEST_FH, '>>', "$dir/parser_id");
+    my $dir = shift;
+    my $file = "$dir/parser_id";
+    warn "$file: $!" if !open(TEST_FH, '>>', $file);
     print TEST_FH $_[0];
-    warn $! if !close(TEST_FH);
-}
-
-#=======================================================================
-# This routine used to cleanup files created by _TESTING (config option)
-#=======================================================================
-
-sub _testing_cleanup {
-    my $dir = '_Inline_test';
-
-    if (-f "$dir/parser_id") {
-        warn "Failed to unlink C/$dir/parser_id\n"
-            if !unlink("$dir/parser_id");
-    }
-
-    if (-f "$dir/void_test") {
-        warn "Failed to unlink C/$dir/void_test\n"
-            if !unlink("$dir/void_test");
-    }
+    warn "$file: $!" if !close(TEST_FH);
 }
 
 1;

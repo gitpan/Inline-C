@@ -1,24 +1,13 @@
-BEGIN {
-  if (exists $ENV{PERL_INSTALL_ROOT}) {
-    warn "\nIgnoring \$ENV{PERL_INSTALL_ROOT} in $0\n";
-    delete $ENV{PERL_INSTALL_ROOT};
-  }
-};
 use File::Spec;
-use lib (File::Spec->catdir(File::Spec->updir(),'blib','lib'), File::Spec->catdir(File::Spec->curdir(),'blib','lib'));
 use strict;
-use Test;
+use Test::More;
 use diagnostics;
-use Inline Config => DIRECTORY => '_Inline_test';
+use File::Basename;
+use lib dirname(__FILE__);
+use TestInlineSetup;
+use Inline Config => DIRECTORY => $TestInlineSetup::DIR;
 
-plan(tests => 1,
-     todo => [],
-     onfail => sub {},
-    );
-
-use Inline C => Config =>
-    USING => 'ParseRegExp';
-
+use Inline C => Config => USING => 'ParseRegExp';
 use Inline C => <<'EOC';
 
 void foo() {
@@ -43,5 +32,6 @@ EOC
 
 my @z = foo2();
 
-ok(scalar(@z) == 6);
+is(scalar(@z), 6);
 
+done_testing;

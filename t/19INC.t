@@ -1,14 +1,11 @@
-BEGIN {
-  if (exists $ENV{PERL_INSTALL_ROOT}) {
-    warn "\nIgnoring \$ENV{PERL_INSTALL_ROOT} in $0\n";
-    delete $ENV{PERL_INSTALL_ROOT};
-  }
-};
 use File::Spec;
-use lib (File::Spec->catdir(File::Spec->updir(),'blib','lib'), File::Spec->catdir(File::Spec->curdir(),'blib','lib'));
 use strict;
 use warnings;
 use Cwd;
+use File::Basename;
+use lib dirname(__FILE__);
+use TestInlineSetup;
+use Inline Config => DIRECTORY => $TestInlineSetup::DIR;
 
 BEGIN {
   my $testdir = -d 'test' ? 'test' : 't';
@@ -18,10 +15,8 @@ BEGIN {
   $main::includes = "-I$incdir1  -I$incdir2";
 };
 
-
 use Inline C => Config =>
- INC => $main::includes,
- DIRECTORY => '_Inline_test';
+ INC => $main::includes;
 
 use Inline C => <<'EOC';
 

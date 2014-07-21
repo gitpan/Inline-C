@@ -1,21 +1,14 @@
-BEGIN {
-  if (exists $ENV{PERL_INSTALL_ROOT}) {
-    warn "\nIgnoring \$ENV{PERL_INSTALL_ROOT} in $0\n";
-    delete $ENV{PERL_INSTALL_ROOT};
-  }
-};
-
 use strict;
 use warnings;
+use File::Basename;
+use lib dirname(__FILE__);
+use TestInlineSetup;
+use Inline Config => DIRECTORY => $TestInlineSetup::DIR;
 
 print "1..5\n";
 
-
-
 eval {
  require Inline;
- Inline->import(Config =>
-                DIRECTORY => '_Inline_test');
  Inline->import (C =><<'EOC');
 
  int foo() {
@@ -48,7 +41,6 @@ else {
 eval {
  require Inline;
  Inline->import(C => Config =>
-                DIRECTORY => '_Inline_test',
                 #BUILD_NOISY => 1,
                 CC => 'missing_compiler');
  Inline->import (C =><<'EOC');
