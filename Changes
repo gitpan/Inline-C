@@ -1,3 +1,9 @@
+0.62_01 Tue Jul 29 02:22:12 BST 2014
+ - version-parsing improvements
+ - Test module build in dir with space.
+ - Perl licence on Cookbook
+ - t/TestInlineSetup.pm fixes for Windows DLLs, tainting
+
 0.62 Sat Jul 19 22:43:12 BST 2014
  - eg/modules moved to here as they're C
  - tests each use own dir, and all use Test::More and

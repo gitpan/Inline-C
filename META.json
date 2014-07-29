@@ -49,7 +49,7 @@
          }
       }
    },
-   "release_status" : "stable",
+   "release_status" : "testing",
    "resources" : {
       "bugtracker" : {
          "web" : "https://github.com/ingydotnet/inline-c-pm/issues"
@@ -61,6 +61,6 @@
          "web" : "https://github.com/ingydotnet/inline-c-pm"
       }
    },
-   "version" : "0.62"
+   "version" : "0.62_01"
 }
 
