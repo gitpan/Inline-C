@@ -31,10 +31,15 @@ my %WriteMakefileArgs = (
     "Pegex" => "0.30"
   },
   "TEST_REQUIRES" => {
+    "File::Copy::Recursive" => 0,
+    "IO::All" => 0,
     "Test::More" => "0.88",
-    "Test::Warn" => "0.23"
+    "Test::Warn" => "0.23",
+    "YAML::XS" => 0,
+    "autodie" => 0,
+    "version" => "0.77"
   },
-  "VERSION" => "0.62_02",
+  "VERSION" => "0.62_03",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -42,12 +47,17 @@ my %WriteMakefileArgs = (
 
 
 my %FallbackPrereqs = (
+  "File::Copy::Recursive" => 0,
   "File::Spec" => "0.8",
+  "IO::All" => 0,
   "Inline" => "0.64",
   "Parse::RecDescent" => "1.80",
   "Pegex" => "0.30",
   "Test::More" => "0.88",
-  "Test::Warn" => "0.23"
+  "Test::Warn" => "0.23",
+  "YAML::XS" => 0,
+  "autodie" => 0,
+  "version" => "0.77"
 );
 
 

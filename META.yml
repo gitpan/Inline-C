@@ -3,8 +3,13 @@ abstract: 'C Language Support for Inline'
 author:
   - 'Ingy döt Net <ingy@cpan.org>'
 build_requires:
+  File::Copy::Recursive: '0'
+  IO::All: '0'
   Test::More: '0.88'
   Test::Warn: '0.23'
+  YAML::XS: '0'
+  autodie: '0'
+  version: '0.77'
 configure_requires:
   ExtUtils::MakeMaker: '6.30'
   File::ShareDir::Install: '0.06'
@@ -31,4 +36,4 @@ resources:
   bugtracker: https://github.com/ingydotnet/inline-c-pm/issues
   homepage: https://github.com/ingydotnet/inline-c-pm
   repository: https://github.com/ingydotnet/inline-c-pm.git
-version: 0.62_02
+version: 0.62_03

@@ -44,8 +44,13 @@
       },
       "test" : {
          "requires" : {
+            "File::Copy::Recursive" : "0",
+            "IO::All" : "0",
             "Test::More" : "0.88",
-            "Test::Warn" : "0.23"
+            "Test::Warn" : "0.23",
+            "YAML::XS" : "0",
+            "autodie" : "0",
+            "version" : "0.77"
          }
       }
    },
@@ -61,6 +66,6 @@
          "web" : "https://github.com/ingydotnet/inline-c-pm"
       }
    },
-   "version" : "0.62_02"
+   "version" : "0.62_03"
 }
 
