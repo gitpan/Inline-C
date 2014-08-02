@@ -7,13 +7,18 @@ use 5.008001;
 
 use ExtUtils::MakeMaker 6.30;
 
+use File::ShareDir::Install;
+$File::ShareDir::Install::INCLUDE_DOTFILES = 1;
+$File::ShareDir::Install::INCLUDE_DOTDIRS = 1;
+install_share dist => "share";
 
 
 my %WriteMakefileArgs = (
   "ABSTRACT" => "C Language Support for Inline",
   "AUTHOR" => "Ingy d\x{f6}t Net <ingy\@cpan.org>",
   "CONFIGURE_REQUIRES" => {
-    "ExtUtils::MakeMaker" => "6.30"
+    "ExtUtils::MakeMaker" => "6.30",
+    "File::ShareDir::Install" => "0.06"
   },
   "DISTNAME" => "Inline-C",
   "EXE_FILES" => [],
@@ -22,15 +27,14 @@ my %WriteMakefileArgs = (
   "PREREQ_PM" => {
     "File::Spec" => "0.8",
     "Inline" => "0.64",
-    "Parse::RecDescent" => "1.80"
+    "Parse::RecDescent" => "1.80",
+    "Pegex" => "0.30"
   },
   "TEST_REQUIRES" => {
-    "File::Copy::Recursive" => 0,
     "Test::More" => "0.88",
-    "Test::Warn" => "0.23",
-    "version" => "0.77"
+    "Test::Warn" => "0.23"
   },
-  "VERSION" => "0.62_01",
+  "VERSION" => "0.62_02",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -38,13 +42,12 @@ my %WriteMakefileArgs = (
 
 
 my %FallbackPrereqs = (
-  "File::Copy::Recursive" => 0,
   "File::Spec" => "0.8",
   "Inline" => "0.64",
   "Parse::RecDescent" => "1.80",
+  "Pegex" => "0.30",
   "Test::More" => "0.88",
-  "Test::Warn" => "0.23",
-  "version" => "0.77"
+  "Test::Warn" => "0.23"
 );
 
 
@@ -59,5 +62,10 @@ delete $WriteMakefileArgs{CONFIGURE_REQUIRES}
 
 WriteMakefile(%WriteMakefileArgs);
 
+{
+package
+MY;
+use File::ShareDir::Install qw(postamble);
+}
 
 

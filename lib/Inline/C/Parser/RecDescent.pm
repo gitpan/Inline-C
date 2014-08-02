@@ -1,5 +1,5 @@
 use strict; use warnings;
-package Inline::C::ParseRecDescent;
+package Inline::C::Parser::RecDescent;
 
 use Carp;
 
@@ -12,7 +12,7 @@ sub register {
 
 sub get_parser {
     my $o = shift;
-    Inline::C::_parser_test($o->{CONFIG}{DIRECTORY}, "Inline::C::ParseRecDescent::get_parser called\n") if $o->{CONFIG}{_TESTING};
+    Inline::C::_parser_test($o->{CONFIG}{DIRECTORY}, "Inline::C::Parser::RecDescent::get_parser called\n") if $o->{CONFIG}{_TESTING};
     eval { require Parse::RecDescent };
     croak <<END if $@;
 This invocation of Inline requires the Parse::RecDescent module.

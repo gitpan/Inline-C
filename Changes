@@ -1,3 +1,6 @@
+0.62_02 Fri Aug  1 18:00:01 PDT 2014
+ - Pegex replaces Parse::RecDescent as the default parser
+
 0.62_01 Tue Jul 29 02:22:12 BST 2014
  - version-parsing improvements
  - Test module build in dir with space.

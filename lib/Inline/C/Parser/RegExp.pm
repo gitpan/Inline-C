@@ -1,5 +1,5 @@
 use strict; use warnings;
-package Inline::C::ParseRegExp;
+package Inline::C::Parser::RegExp;
 
 use Carp;
 
@@ -11,8 +11,8 @@ sub register {
 }
 
 sub get_parser {
-    Inline::C::_parser_test($_[0]->{CONFIG}{DIRECTORY}, "Inline::C::ParseRegExp::get_parser called\n") if $_[0]->{CONFIG}{_TESTING};
-    bless {}, 'Inline::C::ParseRegExp'
+    Inline::C::_parser_test($_[0]->{CONFIG}{DIRECTORY}, "Inline::C::Parser::RegExp::get_parser called\n") if $_[0]->{CONFIG}{_TESTING};
+    bless {}, 'Inline::C::Parser::RegExp'
 }
 
 sub code {
