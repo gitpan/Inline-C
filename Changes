@@ -1,3 +1,6 @@
+0.62_05 Fri Aug 15 19:58:53 PDT 2014
+ - Add t/000-require-modules.t
+
 0.62_04 Fri Aug 15 18:24:39 PDT 2014
  - Add t/000-compile-modules.t
 
