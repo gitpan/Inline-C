@@ -1,3 +1,6 @@
+0.62_06 Sat Aug 16 01:25:40 PDT 2014
+ - Clean up test code
+
 0.62_05 Fri Aug 15 19:58:53 PDT 2014
  - Add t/000-require-modules.t
 
