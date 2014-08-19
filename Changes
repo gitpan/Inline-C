@@ -1,3 +1,6 @@
+0.62_10 Tue Aug 19 15:54:05 PDT 2014
+ - Doc fix from Jin++
+
 0.62_09 Sat Aug 16 16:38:38 PDT 2014
  - Remove $testdir vars from tests
 
