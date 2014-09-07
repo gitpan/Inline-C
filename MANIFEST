@@ -65,9 +65,11 @@ t/24prefix.t
 t/25proto.t
 t/26fork.t
 t/27inline_maker.t
+t/TestInlineC.pm
 t/TestInlineSetup.pm
 t/bar/find_me_in_bar.h
 t/foo/find_me_in_foo.h
+t/parse-pegex.t
 t/pegex-parser.t
 t/prehead.in
 t/proto1.p

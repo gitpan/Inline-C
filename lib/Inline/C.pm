@@ -1,6 +1,6 @@
 use strict; use warnings;
 package Inline::C;
-our $VERSION = '0.62_11';
+our $VERSION = '0.62_12';
 
 use Inline 0.56;
 use Config;
@@ -385,8 +385,8 @@ sub get_parser {
     my $o = shift;
     Inline::C::_parser_test($o->{CONFIG}{DIRECTORY}, "Inline::C::get_parser called\n")
         if $o->{CONFIG}{_TESTING};
-    require Inline::C::Parser::Pegex;
-    Inline::C::Parser::Pegex::get_parser($o);
+    require Inline::C::Parser::RecDescent;
+    Inline::C::Parser::RecDescent::get_parser($o);
 }
 
 #==============================================================================
