@@ -4,7 +4,7 @@
       "Ingy döt Net <ingy@cpan.org>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 5.019, CPAN::Meta::Converter version 2.132830",
+   "generated_by" : "Dist::Zilla version 5.020, CPAN::Meta::Converter version 2.140640",
    "license" : [
       "perl_5"
    ],
@@ -24,7 +24,7 @@
    "prereqs" : {
       "configure" : {
          "requires" : {
-            "ExtUtils::MakeMaker" : "6.30",
+            "ExtUtils::MakeMaker" : "0",
             "File::ShareDir::Install" : "0.06"
          }
       },
@@ -36,9 +36,9 @@
       "runtime" : {
          "requires" : {
             "File::Spec" : "0.8",
-            "Inline" : "0.64",
+            "Inline" : "0.77",
             "Parse::RecDescent" : "1.80",
-            "Pegex" : "0.30",
+            "Pegex" : "0.55",
             "perl" : "v5.8.1"
          }
       },
@@ -54,7 +54,7 @@
          }
       }
    },
-   "release_status" : "testing",
+   "release_status" : "stable",
    "resources" : {
       "bugtracker" : {
          "web" : "https://github.com/ingydotnet/inline-c-pm/issues"
@@ -66,6 +66,6 @@
          "web" : "https://github.com/ingydotnet/inline-c-pm"
       }
    },
-   "version" : "0.62_13"
+   "version" : "0.64"
 }
 

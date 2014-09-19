@@ -39,7 +39,7 @@ FUNCTION DEFINITIONS
     The most common types are: "int", "long", "double", "char*", and "SV*".
     But you can use any type for which Inline can find a typemap. Inline
     uses the "typemap" file distributed with Perl as the default. You can
-    specify more typemaps with the TYPEMAPS configuration option.
+    specify more typemaps with the "typemaps" configuration option.
 
     A return type of "void" may also be used. The following are examples of
     valid function definitions.
@@ -50,7 +50,7 @@ FUNCTION DEFINITIONS
         long Foo(int i, int j, ...) {
         SV* Foo(void) { # 'void' arg invalid with the ParseRecDescent parser.
                         # Works only with the ParseRegExp parser.
-                        # See the section on USING (below).
+                        # See the section on `using` (below).
         SV* Foo() {  # Alternative to specifying 'void' arg. Is valid with
                      # both the ParseRecDescent and ParseRegExp parsers.
 
@@ -72,14 +72,14 @@ C CONFIGURATION OPTIONS
     available for C. Most of the options correspond either to MakeMaker or
     XS options of the same name. See ExtUtils::MakeMaker and perlxs.
 
-  AUTO_INCLUDE
+  auto_include
     Specifies extra statements to automatically included. They will be added
     onto the defaults. A newline char will be automatically added.
 
-        use Inline C => Config => AUTO_INCLUDE => '#include "yourheader.h"';
+        use Inline C => config => auto_include => '#include "yourheader.h"';
 
-  AUTOWRAP
-    If you 'ENABLE => AUTOWRAP', Inline::C will parse function declarations
+  autowrap
+    If you "enable => autowrap", Inline::C will parse function declarations
     (prototype statements) in your C code. For each declaration it can bind
     to, it will create a dummy wrapper that will call the real function
     which may be in an external library. This is a nice convenience for
@@ -88,29 +88,29 @@ C CONFIGURATION OPTIONS
     This is similar to the base functionality you get from "h2xs". It can be
     very useful for binding to external libraries.
 
-  BOOT
-    Specifies C code to be executed in the XS BOOT section. Corresponds to
+  boot
+    Specifies C code to be executed in the XS "BOOT" section. Corresponds to
     the XS parameter.
 
-  CC
+  cc
     Specify which compiler to use.
 
-  CCFLAGS
-    Specify compiler flags - same as ExtUtils::MakeMaker's CCFLAGS option.
+  ccflags
+    Specify compiler flags - same as ExtUtils::MakeMaker's "CCFLAGS" option.
     Whatever gets specified here replaces the default $Config{ccflags}.
     Often, you'll want to add an extra flag or two without clobbering the
-    default flags in which case you could instead use CCFLAGSEX (see below)
-    or, iff Config.pm has already been loaded:
+    default flags in which case you could instead use "ccflagsex" (see
+    below) or, if Config.pm has already been loaded:
 
-        use Inline C => Config => CCFLAGS => $Config{ccflags} . " -DXTRA -DTOO";
+        use Inline C => Config => ccflags => $Config{ccflags} . " -DXTRA -DTOO";
 
-  CCFLAGSEX
-    Extend compiler flags. Sets CCFLAGS to $Config{ccflags} followed by a
+  ccflagsex
+    Extend compiler flags. Sets "CCFLAGS" to $Config{ccflags} followed by a
     space, followed by the specified value:
 
-        use Inline C => Config => CCFLAGSEX => "-DXTRA -DTOO";
+        use Inline C => config => ccflagsex => "-DXTRA -DTOO";
 
-  FILTERS
+  filters
     Allows you to specify a list of source code filters. If more than one is
     requested, be sure to group them with an array ref. The filters can
     either be subroutine references or names of filters provided by the
@@ -123,101 +123,113 @@ C CONFIGURATION OPTIONS
     example:
 
         use Inline C => DATA =>
-                   FILTERS => [Strip_POD => \&MyFilter => Preprocess ];
+                   filters => [Strip_POD => \&MyFilter => Preprocess ];
 
     Filters are invoked in the order specified. See Inline::Filters for more
     information.
 
-  INC
+  inc
     Specifies an include path to use. Corresponds to the MakeMaker
     parameter. Expects a fully qualified path.
 
-        use Inline C => Config => INC => '-I/inc/path';
+        use Inline C => config => inc => '-I/inc/path';
 
-  LD
+  ld
     Specify which linker to use.
 
-  LDDLFLAGS
+  lddlflags
     Specify which linker flags to use.
 
     NOTE: These flags will completely override the existing flags, instead
     of just adding to them. So if you need to use those too, you must
     respecify them here.
 
-  LIBS
+  libs
     Specifies external libraries that should be linked into your code.
     Corresponds to the MakeMaker parameter. Provide a fully qualified path
     with the -L switch if the library is in a location where it won't be
     found automatically.
 
-        use Inline C => Config => LIBS => '-lyourlib';
+        use Inline C => config => libs => '-lyourlib';
 
     or
 
-        use Inline C => Config => LIBS => '-L/your/path -lyourlib';
+        use Inline C => config => libs => '-L/your/path -lyourlib';
 
-  MAKE
+  make
     Specify the name of the 'make' utility to use.
 
-  MYEXTLIB
+  myextlib
     Specifies a user compiled object that should be linked in. Corresponds
     to the MakeMaker parameter. Expects a fully qualified path.
 
-        use Inline C => Config => MYEXTLIB => '/your/path/yourmodule.so';
+        use Inline C => config => myextlib => '/your/path/yourmodule.so';
 
-  OPTIMIZE
-    This controls the MakeMaker OPTIMIZE setting. By setting this value to
-    "'- g'", you can turn on debugging support for your Inline extensions.
-    This will allow you to be able to set breakpoints in your C code using a
+  optimize
+    This controls the MakeMaker "OPTIMIZE" setting. By setting this value to
+    '-g', you can turn on debugging support for your Inline extensions. This
+    will allow you to be able to set breakpoints in your C code using a
     debugger like gdb.
 
-  PREFIX
-    Specifies a prefix that will be automatically stripped from C functions
+  prefix
+    specifies a prefix that will be automatically stripped from C functions
     when they are bound to Perl. Useful for creating wrappers for shared
     library API-s, and binding to the original names in Perl. Also useful
     when names conflict with Perl internals. Corresponds to the XS
     parameter.
 
-        use Inline C => Config => PREFIX => 'ZLIB_';
+        use Inline C => config => prefix => 'ZLIB_';
 
-  PRE_HEAD
+  pre_head
     Specifies code that will precede the inclusion of all files specified in
-    AUTO_INCLUDE (ie EXTERN.h, perl.h, XSUB.h, INLINE.h and anything else
-    that might have been added to AUTO_INCLUDE by the user). If the
-    specified value identifies a file, the contents of that file will be
-    inserted, otherwise the specified value is inserted.
+    "auto_include" (ie "EXTERN.h", "perl.h", "XSUB.h", "INLINE.h" and
+    anything else that might have been added to "auto_include" by the user).
+    If the specified value identifies a file, the contents of that file will
+    be inserted, otherwise the specified value is inserted.
 
-        use Inline C => Config => PRE_HEAD => $code_or_filename;
+        use Inline C => config => pre_head => $code_or_filename;
 
-  PROTOTYPE
+  prototype
     Corresponds to the XS keyword 'PROTOTYPE'. See the perlxs documentation
     for both 'PROTOTYPES' and 'PROTOTYPE'. As an example, the following will
     set the PROTOTYPE of the 'foo' function to '$', and disable prototyping
     for the 'bar' function.
 
-        use Inline C => Config => PROTOTYPE => {foo => '$', bar => 'DISABLE'}
+        use Inline C => config => prototype => {foo => '$', bar => 'DISABLE'}
 
-  PROTOTYPES
+  prototypes
     Corresponds to the XS keyword 'PROTOTYPES'. Can take only values of
     'ENABLE' or 'DISABLE'. (Contrary to XS, default value is 'DISABLE'). See
     the perlxs documentation for both 'PROTOTYPES' and 'PROTOTYPE'.
 
-        use Inline C => Config => PROTOTYPES => 'ENABLE';
+        use Inline C => config => prototypes => 'ENABLE';
 
-  TYPEMAPS
+  typemaps
     Specifies extra typemap files to use. These types will modify the
     behaviour of the C parsing. Corresponds to the MakeMaker parameter.
     Specify either a fully qualified path or a path relative to the cwd (ie
     relative to what the cwd is at the time the script is loaded).
 
-        use Inline C => Config => TYPEMAPS => '/your/path/typemap';
+        use Inline C => config => typemaps => '/your/path/typemap';
 
-  USING
-    Specifies which parser to use. Default is 'ParseRecDescent', which uses
-    the Parse::RecDescent module. The only other option is 'ParseRegExp',
-    which uses the Inline::C::ParseRegExp module that ships with Inline.
+  using
+    Specifies which parser to use. The default is
+    Inline::C::Parser::RecDescent, which uses the Parse::RecDescent module.
 
-          use Inline C => Config => USING => 'ParseRegExp';
+    The other options are "::Parser::Pegex" and "::Parser::RegExp", which
+    uses the Inline::C::Parser::Pegex and Inline::C::Parser::RegExp modules
+    that ship with Inline::C.
+
+        use Inline C => config => using => '::Parser::Pegex';
+
+    Note that the following old options are deprecated, but still work at
+    this time:
+
+    *   "ParseRecDescent"
+
+    *   "ParseRegExp"
+
+    *   "ParsePegex"
 
 C-PERL BINDINGS
     This section describes how the "Perl" variables get mapped to "C"
@@ -266,7 +278,7 @@ C-PERL BINDINGS
     If you need to deal with a type that is not in the defaults, just use
     the generic "SV*" type in the function definition. Then inside your
     code, do the mapping yourself. Alternatively, you can create your own
-    typemap files and specify them using the "TYPEMAPS" configuration
+    typemap files and specify them using the "typemaps" configuration
     option.
 
     A return type of "void" has a special meaning to Inline. It means that

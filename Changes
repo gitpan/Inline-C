@@ -1,3 +1,9 @@
+0.64 Fri Sep 19 23:22:49 UTC 2014
+ - Major release for all the work since 0.62
+ - Renamed the parser modules
+ - Adjusted the `using` paramater
+ - Updated docs
+
 0.62_13 Thu Sep 11 17:37:28 PDT 2014
  - Remove XXX debugging
 
