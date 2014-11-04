@@ -27,6 +27,7 @@ no_index:
     - xt
     - example
 requires:
+  ExtUtils::MakeMaker: '7.00'
   File::Spec: '0.8'
   Inline: '0.77'
   Parse::RecDescent: '1.80'
@@ -36,4 +37,4 @@ resources:
   bugtracker: https://github.com/ingydotnet/inline-c-pm/issues
   homepage: https://github.com/ingydotnet/inline-c-pm
   repository: https://github.com/ingydotnet/inline-c-pm.git
-version: '0.64'
+version: '0.65'

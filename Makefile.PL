@@ -25,6 +25,7 @@ my %WriteMakefileArgs = (
   "LICENSE" => "perl",
   "NAME" => "Inline::C",
   "PREREQ_PM" => {
+    "ExtUtils::MakeMaker" => "7.00",
     "File::Spec" => "0.8",
     "Inline" => "0.77",
     "Parse::RecDescent" => "1.80",
@@ -39,7 +40,7 @@ my %WriteMakefileArgs = (
     "autodie" => 0,
     "version" => "0.77"
   },
-  "VERSION" => "0.64",
+  "VERSION" => "0.65",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -47,6 +48,7 @@ my %WriteMakefileArgs = (
 
 
 my %FallbackPrereqs = (
+  "ExtUtils::MakeMaker" => "7.00",
   "File::Copy::Recursive" => 0,
   "File::Spec" => "0.8",
   "IO::All" => 0,

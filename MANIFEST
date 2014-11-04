@@ -35,7 +35,6 @@ share/Makefile
 share/inline-c.pgx
 share/inline-c.pgx.json
 share/inline-c.pgx.yaml
-t/000-require-modules.t
 t/01syntax.t
 t/02config.t
 t/03typemap.t
@@ -65,6 +64,7 @@ t/24prefix.t
 t/25proto.t
 t/26fork.t
 t/27inline_maker.t
+t/28autowrap.t
 t/TestInlineC.pm
 t/TestInlineSetup.pm
 t/bar/find_me_in_bar.h

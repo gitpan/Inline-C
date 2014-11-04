@@ -10,6 +10,10 @@ use Cwd;
 use File::Copy::Recursive qw(rcopy);
 use autodie;
 
+my @make_targets = qw(test install);
+my $CLEANUP = 1;
+push @make_targets, qw(realclean) if $CLEANUP;
+
 my ($example_modules_dir) = grep { -e } map {
   File::Spec->rel2abs(File::Spec->catdir($_, 'modules'))
 } qw(eg example);
@@ -23,7 +27,7 @@ plan skip_all => "Inline version 0.64+ required for this."
 my $lib_dir = File::Spec->rel2abs('lib');
 my $base_dir = File::Spec->rel2abs($TestInlineSetup::DIR);
 my $src_dir = File::Spec->catdir($base_dir, 'src dir');
-my $inst_dir = File::Spec->catdir($base_dir, 'instdir');
+my $inst_dir = File::Spec->catdir($base_dir, 'inst dir');
 mkpath $inst_dir;
 
 my $cwd = getcwd;
@@ -35,10 +39,10 @@ for my $module (glob "$example_modules_dir/*") {
   my $cmd = [$^X, "-I$lib_dir", 'Makefile.PL', "INSTALL_BASE=$inst_dir"];
   my @result = run(command => $cmd, verbose => 0, buffer => \$buffer);
   ok($result[0], "$module Makefile creation");
-  diag $buffer unless $result[0];
-  map { do_make($_) } qw(test install realclean);
+  diag "Error: $result[1]\n", $buffer unless $result[0];
+  map { do_make($_) } @make_targets;
   chdir $cwd;
-  rmtree $src_dir;
+  rmtree $src_dir if $CLEANUP;
 }
 
 sub do_make {
