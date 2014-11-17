@@ -26,6 +26,9 @@ no_index:
     - t
     - xt
     - example
+    - lib/Inline/C/Parser
+  file:
+    - lib/Inline/C/Parser.pm
 requires:
   ExtUtils::MakeMaker: '7.00'
   File::Spec: '0.8'
@@ -37,4 +40,4 @@ resources:
   bugtracker: https://github.com/ingydotnet/inline-c-pm/issues
   homepage: https://github.com/ingydotnet/inline-c-pm
   repository: https://github.com/ingydotnet/inline-c-pm.git
-version: '0.65'
+version: '0.66'

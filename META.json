@@ -18,7 +18,11 @@
          "inc",
          "t",
          "xt",
-         "example"
+         "example",
+         "lib/Inline/C/Parser"
+      ],
+      "file" : [
+         "lib/Inline/C/Parser.pm"
       ]
    },
    "prereqs" : {
@@ -67,6 +71,6 @@
          "web" : "https://github.com/ingydotnet/inline-c-pm"
       }
    },
-   "version" : "0.65"
+   "version" : "0.66"
 }
 
