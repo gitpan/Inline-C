@@ -1,3 +1,6 @@
+0.67 Tue Nov 25 16:59:41 GMT 2014
+ - Skip test/pegex-parser.t unless env PERL_INLINE_DEVELOPER_TEST set
+
 0.66 Mon Nov 17 06:09:54 GMT 2014
  - Make test/pegex-parser.t less fragile on fail
  - No CPAN index of Inline::C::Parser classes
