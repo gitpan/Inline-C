@@ -33,11 +33,11 @@ requires:
   ExtUtils::MakeMaker: '7.00'
   File::Spec: '0.8'
   Inline: '0.78'
-  Parse::RecDescent: '1.80'
-  Pegex: '0.55'
+  Parse::RecDescent: '1.967009'
+  Pegex: '0.58'
   perl: v5.8.1
 resources:
   bugtracker: https://github.com/ingydotnet/inline-c-pm/issues
   homepage: https://github.com/ingydotnet/inline-c-pm
   repository: https://github.com/ingydotnet/inline-c-pm.git
-version: '0.70'
+version: '0.71'
