@@ -3,8 +3,8 @@
    "author" : [
       "Ingy döt Net <ingy@cpan.org>"
    ],
-   "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 5.025, CPAN::Meta::Converter version 2.143240",
+   "dynamic_config" : 1,
+   "generated_by" : "Dist::Zilla version 5.029, CPAN::Meta::Converter version 2.143240",
    "license" : [
       "perl_5"
    ],
@@ -41,7 +41,7 @@
          "requires" : {
             "ExtUtils::MakeMaker" : "7.00",
             "File::Spec" : "0.8",
-            "Inline" : "0.77",
+            "Inline" : "0.78",
             "Parse::RecDescent" : "1.80",
             "Pegex" : "0.55",
             "perl" : "v5.8.1"
@@ -71,6 +71,6 @@
          "web" : "https://github.com/ingydotnet/inline-c-pm"
       }
    },
-   "version" : "0.69"
+   "version" : "0.70"
 }
 

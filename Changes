@@ -1,3 +1,6 @@
+0.70 Fri Dec 26 21:43:44 PST 2014
+ - Windows depends on Win32::Mutex now
+
 0.69 Fri Dec 26 23:13:52 GMT 2014
  - 27inline_maker.t - remove install-dir after each module, to help Win32
 
