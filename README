@@ -1,5 +1,5 @@
 NAME
-    Inline::C - Write Perl Subroutines in C
+    Inline::C - C Language Support for Inline
 
 DESCRIPTION
     "Inline::C" is a module that allows you to write Perl subroutines in C.
@@ -72,164 +72,182 @@ C CONFIGURATION OPTIONS
     available for C. Most of the options correspond either to MakeMaker or
     XS options of the same name. See ExtUtils::MakeMaker and perlxs.
 
-  auto_include
-    Specifies extra statements to automatically included. They will be added
-    onto the defaults. A newline char will be automatically added.
+    "auto_include"
+        Specifies extra statements to automatically included. They will be
+        added onto the defaults. A newline char will be automatically added.
 
-        use Inline C => config => auto_include => '#include "yourheader.h"';
+            use Inline C => config => auto_include => '#include "yourheader.h"';
 
-  autowrap
-    If you "enable => autowrap", Inline::C will parse function declarations
-    (prototype statements) in your C code. For each declaration it can bind
-    to, it will create a dummy wrapper that will call the real function
-    which may be in an external library. This is a nice convenience for
-    functions that would otherwise just require an empty wrapper function.
+    "autowrap"
+        If you "enable => autowrap", Inline::C will parse function
+        declarations (prototype statements) in your C code. For each
+        declaration it can bind to, it will create a dummy wrapper that will
+        call the real function which may be in an external library. This is
+        a nice convenience for functions that would otherwise just require
+        an empty wrapper function.
 
-    This is similar to the base functionality you get from "h2xs". It can be
-    very useful for binding to external libraries.
+        This is similar to the base functionality you get from "h2xs". It
+        can be very useful for binding to external libraries.
 
-  boot
-    Specifies C code to be executed in the XS "BOOT" section. Corresponds to
-    the XS parameter.
+    "boot"
+        Specifies C code to be executed in the XS "BOOT" section.
+        Corresponds to the XS parameter.
 
-  cc
-    Specify which compiler to use.
+    "cc"
+        Specify which compiler to use.
 
-  ccflags
-    Specify compiler flags - same as ExtUtils::MakeMaker's "CCFLAGS" option.
-    Whatever gets specified here replaces the default $Config{ccflags}.
-    Often, you'll want to add an extra flag or two without clobbering the
-    default flags in which case you could instead use "ccflagsex" (see
-    below) or, if Config.pm has already been loaded:
+    "ccflags"
+        Specify compiler flags - same as ExtUtils::MakeMaker's "CCFLAGS"
+        option. Whatever gets specified here replaces the default
+        $Config{ccflags}. Often, you'll want to add an extra flag or two
+        without clobbering the default flags in which case you could instead
+        use "ccflagsex" (see below) or, if Config.pm has already been
+        loaded:
 
-        use Inline C => Config => ccflags => $Config{ccflags} . " -DXTRA -DTOO";
+            use Inline C => Config => ccflags => $Config{ccflags} . " -DXTRA -DTOO";
 
-  ccflagsex
-    Extend compiler flags. Sets "CCFLAGS" to $Config{ccflags} followed by a
-    space, followed by the specified value:
+    "ccflagsex"
+        Extend compiler flags. Sets "CCFLAGS" to $Config{ccflags} followed
+        by a space, followed by the specified value:
 
-        use Inline C => config => ccflagsex => "-DXTRA -DTOO";
+            use Inline C => config => ccflagsex => "-DXTRA -DTOO";
 
-  filters
-    Allows you to specify a list of source code filters. If more than one is
-    requested, be sure to group them with an array ref. The filters can
-    either be subroutine references or names of filters provided by the
-    supplementary Inline::Filters module.
+    "filters"
+        Allows you to specify a list of source code filters. If more than
+        one is requested, be sure to group them with an array ref. The
+        filters can either be subroutine references or names of filters
+        provided by the supplementary Inline::Filters module.
 
-    Your source code will be filtered just before it is parsed by Inline.
-    The MD5 fingerprint is generated before filtering. Source code filters
-    can be used to do things like stripping out POD documentation,
-    pre-expanding "#include" statements or whatever else you please. For
-    example:
+        Your source code will be filtered just before it is parsed by
+        Inline. The MD5 fingerprint is generated before filtering. Source
+        code filters can be used to do things like stripping out POD
+        documentation, pre-expanding "#include" statements or whatever else
+        you please. For example:
 
-        use Inline C => DATA =>
-                   filters => [Strip_POD => \&MyFilter => Preprocess ];
+            use Inline C => DATA =>
+                       filters => [Strip_POD => \&MyFilter => Preprocess ];
 
-    Filters are invoked in the order specified. See Inline::Filters for more
-    information.
+        Filters are invoked in the order specified. See Inline::Filters for
+        more information.
 
-  inc
-    Specifies an include path to use. Corresponds to the MakeMaker
-    parameter. Expects a fully qualified path.
+        If a filter is an array reference, it is assumed to be a usage of a
+        filter plug- in named by the first element of that array reference.
+        The rest of the elements of the array reference are used as
+        arguments to the filter. For example, consider a "filters" parameter
+        like this:
 
-        use Inline C => config => inc => '-I/inc/path';
+            use Inline C => DATA => filters => [ [ Ragel => '-G2' ] ];
 
-  ld
-    Specify which linker to use.
+        In order for Inline::C to process this filter, it will attempt to
+        require the module Inline::Filters::Ragel and will then call the
+        "filter" function in that package with the argument '-G2'. This
+        function will return the actual filtering function.
 
-  lddlflags
-    Specify which linker flags to use.
+    "inc"
+        Specifies an include path to use. Corresponds to the MakeMaker
+        parameter. Expects a fully qualified path.
 
-    NOTE: These flags will completely override the existing flags, instead
-    of just adding to them. So if you need to use those too, you must
-    respecify them here.
+            use Inline C => config => inc => '-I/inc/path';
 
-  libs
-    Specifies external libraries that should be linked into your code.
-    Corresponds to the MakeMaker parameter. Provide a fully qualified path
-    with the -L switch if the library is in a location where it won't be
-    found automatically.
+    "ld"
+        Specify which linker to use.
 
-        use Inline C => config => libs => '-lyourlib';
+    "lddlflags"
+        Specify which linker flags to use.
 
-    or
+        NOTE: These flags will completely override the existing flags,
+        instead of just adding to them. So if you need to use those too, you
+        must respecify them here.
 
-        use Inline C => config => libs => '-L/your/path -lyourlib';
+    "libs"
+        Specifies external libraries that should be linked into your code.
+        Corresponds to the MakeMaker parameter. Provide a fully qualified
+        path with the "-L" switch if the library is in a location where it
+        won't be found automatically.
 
-  make
-    Specify the name of the 'make' utility to use.
+            use Inline C => config => libs => '-lyourlib';
 
-  myextlib
-    Specifies a user compiled object that should be linked in. Corresponds
-    to the MakeMaker parameter. Expects a fully qualified path.
+        or
 
-        use Inline C => config => myextlib => '/your/path/yourmodule.so';
+            use Inline C => config => libs => '-L/your/path -lyourlib';
 
-  optimize
-    This controls the MakeMaker "OPTIMIZE" setting. By setting this value to
-    '-g', you can turn on debugging support for your Inline extensions. This
-    will allow you to be able to set breakpoints in your C code using a
-    debugger like gdb.
+    "make"
+        Specify the name of the 'make' utility to use.
 
-  prefix
-    specifies a prefix that will be automatically stripped from C functions
-    when they are bound to Perl. Useful for creating wrappers for shared
-    library API-s, and binding to the original names in Perl. Also useful
-    when names conflict with Perl internals. Corresponds to the XS
-    parameter.
+    "myextlib"
+        Specifies a user compiled object that should be linked in.
+        Corresponds to the MakeMaker parameter. Expects a fully qualified
+        path.
 
-        use Inline C => config => prefix => 'ZLIB_';
+            use Inline C => config => myextlib => '/your/path/yourmodule.so';
 
-  pre_head
-    Specifies code that will precede the inclusion of all files specified in
-    "auto_include" (ie "EXTERN.h", "perl.h", "XSUB.h", "INLINE.h" and
-    anything else that might have been added to "auto_include" by the user).
-    If the specified value identifies a file, the contents of that file will
-    be inserted, otherwise the specified value is inserted.
+    "optimize"
+        This controls the MakeMaker "OPTIMIZE" setting. By setting this
+        value to '-g', you can turn on debugging support for your Inline
+        extensions. This will allow you to be able to set breakpoints in
+        your C code using a debugger like gdb.
 
-        use Inline C => config => pre_head => $code_or_filename;
+    "prefix"
+        Specifies a prefix that will be automatically stripped from C
+        functions when they are bound to Perl. Useful for creating wrappers
+        for shared library API-s, and binding to the original names in Perl.
+        Also useful when names conflict with Perl internals. Corresponds to
+        the XS parameter.
 
-  prototype
-    Corresponds to the XS keyword 'PROTOTYPE'. See the perlxs documentation
-    for both 'PROTOTYPES' and 'PROTOTYPE'. As an example, the following will
-    set the PROTOTYPE of the 'foo' function to '$', and disable prototyping
-    for the 'bar' function.
+            use Inline C => config => prefix => 'ZLIB_';
 
-        use Inline C => config => prototype => {foo => '$', bar => 'DISABLE'}
+    "pre_head"
+        Specifies code that will precede the inclusion of all files
+        specified in "auto_include" (ie "EXTERN.h", "perl.h", "XSUB.h",
+        "INLINE.h" and anything else that might have been added to
+        "auto_include" by the user). If the specified value identifies a
+        file, the contents of that file will be inserted, otherwise the
+        specified value is inserted.
 
-  prototypes
-    Corresponds to the XS keyword 'PROTOTYPES'. Can take only values of
-    'ENABLE' or 'DISABLE'. (Contrary to XS, default value is 'DISABLE'). See
-    the perlxs documentation for both 'PROTOTYPES' and 'PROTOTYPE'.
+            use Inline C => config => pre_head => $code_or_filename;
 
-        use Inline C => config => prototypes => 'ENABLE';
+    "prototype"
+        Corresponds to the XS keyword 'PROTOTYPE'. See the perlxs
+        documentation for both 'PROTOTYPES' and 'PROTOTYPE'. As an example,
+        the following will set the PROTOTYPE of the 'foo' function to '$',
+        and disable prototyping for the 'bar' function.
 
-  typemaps
-    Specifies extra typemap files to use. These types will modify the
-    behaviour of the C parsing. Corresponds to the MakeMaker parameter.
-    Specify either a fully qualified path or a path relative to the cwd (ie
-    relative to what the cwd is at the time the script is loaded).
+            use Inline C => config => prototype => {foo => '$', bar => 'DISABLE'}
 
-        use Inline C => config => typemaps => '/your/path/typemap';
+    "prototypes"
+        Corresponds to the XS keyword 'PROTOTYPES'. Can take only values of
+        'ENABLE' or 'DISABLE'. (Contrary to XS, default value is 'DISABLE').
+        See the perlxs documentation for both 'PROTOTYPES' and 'PROTOTYPE'.
 
-  using
-    Specifies which parser to use. The default is
-    Inline::C::Parser::RecDescent, which uses the Parse::RecDescent module.
+            use Inline C => config => prototypes => 'ENABLE';
 
-    The other options are "::Parser::Pegex" and "::Parser::RegExp", which
-    uses the Inline::C::Parser::Pegex and Inline::C::Parser::RegExp modules
-    that ship with Inline::C.
+    "typemaps"
+        Specifies extra typemap files to use. These types will modify the
+        behaviour of the C parsing. Corresponds to the MakeMaker parameter.
+        Specify either a fully qualified path or a path relative to the cwd
+        (ie relative to what the cwd is at the time the script is loaded).
 
-        use Inline C => config => using => '::Parser::Pegex';
+            use Inline C => config => typemaps => '/your/path/typemap';
 
-    Note that the following old options are deprecated, but still work at
-    this time:
+    "using"
+        Specifies which parser to use. The default is
+        Inline::C::Parser::RecDescent, which uses the Parse::RecDescent
+        module.
 
-    *   "ParseRecDescent"
+        The other options are "::Parser::Pegex" and "::Parser::RegExp",
+        which uses the Inline::C::Parser::Pegex and
+        Inline::C::Parser::RegExp modules that ship with Inline::C.
 
-    *   "ParseRegExp"
+            use Inline C => config => using => '::Parser::Pegex';
 
-    *   "ParsePegex"
+        Note that the following old options are deprecated, but still work
+        at this time:
+
+        *   "ParseRecDescent"
+
+        *   "ParseRegExp"
+
+        *   "ParsePegex"
 
 C-PERL BINDINGS
     This section describes how the "Perl" variables get mapped to "C"
@@ -263,17 +281,17 @@ C-PERL BINDINGS
     Inline parses your code for these types and generates the XS code to map
     them. The most commonly used types are:
 
-    *   int
+    *   "int"
 
-    *   long
+    *   "long"
 
-    *   double
+    *   "double"
 
-    *   char*
+    *   "char*"
 
-    *   void
+    *   "void"
 
-    *   SV*
+    *   "SV*"
 
     If you need to deal with a type that is not in the defaults, just use
     the generic "SV*" type in the function definition. Then inside your
@@ -305,7 +323,7 @@ THE INLINE STACK MACROS
     The file "INLINE.h" defines a set of macros that are useful for handling
     the Perl Stack from your C functions.
 
-    Inline_Stack_Vars
+    "Inline_Stack_Vars"
         You'll need to use this one, if you want to use the others. It sets
         up a few local variables: "sp", "items", "ax" and "mark", for use by
         the other macros. It's not important to know what they do, but I
@@ -316,29 +334,29 @@ THE INLINE STACK MACROS
         It must come before any executable statements and before any other
         "Inline_Stack" macros.
 
-    Inline_Stack_Items
+    "Inline_Stack_Items"
         Returns the number of arguments passed in on the Stack.
 
     Inline_Stack_Item(i)
         Refers to a particular "SV*" in the Stack, where "i" is an index
         number starting from zero. Can be used to get or set the value.
 
-    Inline_Stack_Reset
+    "Inline_Stack_Reset"
         Use this before pushing anything back onto the Stack. It resets the
         internal Stack pointer to the beginning of the Stack.
 
-    Inline_Stack_Push(sv)
+    "Inline_Stack_Push(sv)"
         Push a return value back onto the Stack. The value must be of type
         "SV*".
 
-    Inline_Stack_Done
+    "Inline_Stack_Done"
         After you have pushed all of your return values, you must call this
         macro.
 
     Inline_Stack_Return(n)
         Return "n" items on the Stack.
 
-    Inline_Stack_Void
+    "Inline_Stack_Void"
         A special macro to indicate that you really don't want to return
         anything. Same as:
 
@@ -495,16 +513,13 @@ BUGS AND DEFICIENCIES
     internal symbols is packaged in the Inline module distribution under the
     filename 'symbols.perl'. Avoid using these in your code.
 
-AUTHOR
-    Ingy dẗ Net <ingy@cpan.org>
+AUTHORS
+    Ingy döt Net <ingy@cpan.org>
 
-    Sisyphus <sisyphus@cpan.org> fixed some bugs and is current
-    co-maintainer.
+    Sisyphus <sisyphus@cpan.org>
 
-COPYRIGHT
-    Copyright 2000-2014. Ingy döt Net.
-
-    Copyright 2008, 2010-2014. Sisyphus.
+COPYRIGHT AND LICENSE
+    Copyright 2000-2015. Ingy döt Net.
 
     This program is free software; you can redistribute it and/or modify it
     under the same terms as Perl itself.

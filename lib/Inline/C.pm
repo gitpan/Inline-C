@@ -1,6 +1,6 @@
 use strict; use warnings;
 package Inline::C;
-our $VERSION = '0.71';
+our $VERSION = '0.72';
 
 use Inline 0.56;
 use Config;
@@ -165,6 +165,23 @@ END
             for my $val (@$value) {
                 if (ref($val) eq 'CODE') {
                     $o->add_list($o->{ILSM}, $key, $val, []);
+                }
+                elsif (ref($val) eq 'ARRAY') {
+                    my ($filter_plugin, @args) = @$val;
+
+                    croak "Bad format for filter plugin name: '$filter_plugin'"
+                        unless $filter_plugin =~ m/^[\w:]+$/;
+
+                    eval "require Inline::Filters::${filter_plugin}";
+                    croak "Filter plugin Inline::Filters::$filter_plugin not installed"
+                        if $@;
+
+                    croak "No Inline::Filters::${filter_plugin}::filter sub found"
+                        unless defined &{"Inline::Filters::${filter_plugin}::filter"};
+
+                    my $filter_factory = \&{"Inline::Filters::${filter_plugin}::filter"};
+
+                    $o->add_list($o->{ILSM}, $key, $filter_factory->(@args), []);
                 }
                 else {
                     eval { require Inline::Filters };

@@ -31,10 +31,7 @@ lib/Inline/C/Parser/Pegex/AST.pm
 lib/Inline/C/Parser/Pegex/Grammar.pm
 lib/Inline/C/Parser/RecDescent.pm
 lib/Inline/C/Parser/RegExp.pm
-share/Makefile
 share/inline-c.pgx
-share/inline-c.pgx.json
-share/inline-c.pgx.yaml
 t/000-require-modules.t
 t/01syntax.t
 t/02config.t

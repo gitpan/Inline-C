@@ -10,7 +10,7 @@
    ],
    "meta-spec" : {
       "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
-      "version" : "2"
+      "version" : 2
    },
    "name" : "Inline-C",
    "no_index" : {
@@ -71,6 +71,6 @@
          "web" : "https://github.com/ingydotnet/inline-c-pm"
       }
    },
-   "version" : "0.71"
+   "version" : "0.72"
 }
 
