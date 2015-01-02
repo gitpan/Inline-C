@@ -40,4 +40,4 @@ resources:
   bugtracker: https://github.com/ingydotnet/inline-c-pm/issues
   homepage: https://github.com/ingydotnet/inline-c-pm
   repository: https://github.com/ingydotnet/inline-c-pm.git
-version: '0.72'
+version: '0.73'
